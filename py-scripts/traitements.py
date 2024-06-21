@@ -15,6 +15,7 @@ def get_missing_values_columns(col):
 # Input data
 df = pd.read_csv('e.csv')
 
+
 # Display missing vales
 print("Checking missing values...\n")
 count_missing_values = df.isnull().sum()
@@ -49,9 +50,6 @@ if df.drop_duplicates(inplace=True) is None:
 else:
     print("Duplicates found and deleted\n")
 
-
-#Describe data
-df.describe()
 
 
 #Vizualize data
