@@ -13,7 +13,7 @@ def get_missing_values_columns(col):
     
 
 # Input data
-df = pd.read_csv('e.csv')
+df = pd.read_csv('star_classification.csv')
 
 
 # Display missing vales
