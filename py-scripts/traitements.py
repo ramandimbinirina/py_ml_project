@@ -58,11 +58,45 @@ else:
 sns.histplot(df['IdealYearlyIncome'])
 plt.show()
 
-# Relations entre différentes variables
+# # Relations entre différentes variables
 sns.pairplot(df)
 plt.show()
 
-        
+
+# Continue for machine learning to predict income
+# Assuming the target column is 'IdealYearlyIncome' and features are the rest
+X = df.drop(columns='IdealYearlyIncome')
+y = df['IdealYearlyIncome']
+
+# Splitting data into training and testing sets
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Example model training (Random Forest)
+from sklearn.ensemble import RandomForestRegressor
+model = RandomForestRegressor(n_estimators=100, random_state=42)
+model.fit(X_train, y_train)
+
+# Model evaluation
+from sklearn.metrics import mean_squared_error, r2_score
+
+y_pred = model.predict(X_test)
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse}")
+print(f"R2 Score: {r2}")
+
+# Visualize feature importance
+importances = model.feature_importances_
+features = X.columns
+importance_df = pd.DataFrame({'Feature': features, 'Importance': importances})
+importance_df = importance_df.sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(12, 8))
+sns.barplot(x='Importance', y='Feature', data=importance_df)
+plt.title('Feature Importance')
+plt.show()        
 
 
 
